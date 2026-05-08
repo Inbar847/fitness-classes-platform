@@ -1,8 +1,10 @@
 from contextlib import asynccontextmanager
+import os
+import time
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
-import time
 
 from app.api.routers.classes import router as classes_router
 from app.api.routers.auth import router as auth_router
@@ -36,9 +38,20 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+
+frontend_url = os.getenv("FRONTEND_URL")
+
+allowed_origins = [
+    "http://localhost:5173",
+]
+
+if frontend_url:
+    allowed_origins.append(frontend_url.rstrip("/"))
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
