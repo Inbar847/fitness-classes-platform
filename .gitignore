@@ -1,11 +1,16 @@
-node_modules/
-__pycache__/
 .env
-.venv
-dist/
-postgres_data/
-client/dist/
-server/__pycache__/
-.env
+.env.local
+.env.*.local
 
-.env
+node_modules/
+client/node_modules/
+
+dist/
+client/dist/
+
+__pycache__/
+*.pyc
+.venv/
+server/.venv/
+
+.DS_Store
